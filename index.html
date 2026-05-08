@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kwasi Adi-Dako — Learning Experience Designer & Writer</title>
+  <meta name="description" content="Kwasi Adi-Dako — learning experience designer & writer. Using play to help people of all ages engage critically and confidently with the future. Stanford LDT '26 / Zaentz Fellow." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4ecd8;
+      --bg-deep: #ecdfc1;
+      --surface: #faf4e2;
+      --ink: #1f1812;
+      --ink-2: #3a2e22;
+      --muted: #6b5a4a;
+      --line: #d8c9a6;
+      --terracotta: #b85042;
+      --terracotta-deep: #8a3a30;
+      --forest: #3d5a4a;
+      --forest-deep: #2a4133;
+      --gold: #b8893d;
+      --plum: #6d2e46;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Subtle paper texture using SVG gradient noise */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(1200px 600px at 80% -10%, rgba(184, 80, 66, 0.07), transparent 60%),
+        radial-gradient(900px 500px at -10% 30%, rgba(61, 90, 74, 0.06), transparent 60%),
+        radial-gradient(800px 400px at 60% 110%, rgba(184, 137, 61, 0.07), transparent 60%);
+    }
+
+    /* Typography */
+    .serif { font-family: 'Fraunces', 'Georgia', serif; }
+    .italic { font-style: italic; }
+
+    h1, h2, h3, h4 {
+      font-family: 'Fraunces', 'Georgia', serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      line-height: 1.05;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+      line-height: 1.15;
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    p { margin: 0 0 1.1em; }
+    a { color: var(--terracotta-deep); text-decoration: none; transition: color 0.2s ease, border-color 0.2s ease; }
+    a:hover { color: var(--terracotta); }
+
+    /* Layout */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .narrow {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    section { padding: clamp(4rem, 8vw, 7rem) 0; position: relative; z-index: 1; }
+
+    /* Header / Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(244, 236, 216, 0.85);
+      backdrop-filter: saturate(140%) blur(8px);
+      -webkit-backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid rgba(216, 201, 166, 0.5);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0;
+    }
+
+    .brand {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      border: none;
+    }
+
+    .brand span {
+      color: var(--terracotta);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--ink-2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links a:hover { color: var(--terracotta); }
+
+    .nav-resume {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--ink-2);
+      border-radius: 999px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-resume:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: clamp(4rem, 8vw, 7rem);
+      padding-bottom: clamp(4rem, 8vw, 7rem);
+    }
+
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      font-weight: 500;
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+    }
+
+    .hero h1 .accent {
+      color: var(--terracotta);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .hero h1 .underline {
+      text-decoration: underline;
+      text-decoration-color: var(--gold);
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+
+    .lede {
+      font-size: clamp(1.05rem, 1.4vw, 1.18rem);
+      line-height: 1.65;
+      color: var(--ink-2);
+      max-width: 60ch;
+      margin-top: 1.8rem;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.4rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.005em;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .btn.primary:hover {
+      background: var(--terracotta-deep);
+      border-color: var(--terracotta-deep);
+      color: var(--bg);
+      transform: translateY(-1px);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border-color: var(--ink-2);
+      color: var(--ink-2);
+    }
+
+    .btn.ghost:hover {
+      background: var(--ink-2);
+      color: var(--bg);
+    }
+
+    .btn .arrow {
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    .btn:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* Hero meta strip */
+    .hero-meta {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .hero-meta .item {
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .hero-meta .label {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .hero-meta .value {
+      color: var(--ink);
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-meta .value .line {
+      display: block;
+      padding: 0.55rem 0;
+      line-height: 1.4;
+    }
+
+    .hero-meta .value .line:first-child { padding-top: 0; }
+    .hero-meta .value .line:last-child { padding-bottom: 0; }
+
+    .hero-meta .value .line + .line {
+      border-top: 1px dashed var(--line);
+    }
+
+    .hero-meta .value .line.muted { color: var(--muted); font-weight: 400; }
+
+    /* Section heading style */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 { flex: 1; min-width: 200px; }
+
+    .section-num {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .section-tag {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 380px;
+    }
+
+    /* About */
+    .about {
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .about-grid::after { content: ""; display: block; clear: both; }
+
+    .about-photo {
+      aspect-ratio: 2/3;
+      width: 320px;
+      max-width: 38%;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 60px -25px rgba(31, 24, 18, 0.35);
+      background: var(--bg-deep);
+      float: left;
+      margin: 0.4rem 2.4rem 1.4rem 0;
+      shape-outside: inset(0 round 6px);
+    }
+
+    @media (max-width: 720px) {
+      .about-photo {
+        float: none;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 2rem;
+        display: block;
+      }
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+
+    .about-photo .marker {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      padding: 0.4rem 0.8rem;
+      color: var(--ink);
+      background: rgba(250, 244, 226, 0.88);
+      backdrop-filter: blur(4px);
+      border-radius: 999px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      z-index: 2;
+      letter-spacing: 0.02em;
+      width: max-content;
+      max-width: calc(100% - 2rem);
+    }
+
+    .about-prose p {
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .about-prose p:first-child::first-line { font-weight: 500; }
+
+    .pull-quote {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      line-height: 1.45;
+      color: var(--ink);
+      border-left: 3px solid var(--terracotta);
+      padding: 0.5rem 0 0.5rem 1.4rem;
+      margin: 2rem 0;
+    }
+
+    .approach {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.4rem;
+      margin-top: 2.4rem;
+    }
+
+    @media (max-width: 600px) { .approach { grid-template-columns: 1fr; } }
+
+    .approach .pill {
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg);
+      font-size: 0.95rem;
+    }
+
+    .approach .pill strong {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      color: var(--terracotta-deep);
+      margin-bottom: 0.2rem;
+      font-size: 0.95rem;
+    }
+
+    /* Featured Work */
+    .work .section-head { margin-bottom: 1.4rem; }
+
+    .work-jumps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin: 0 0 3.4rem;
+      padding-bottom: 2.4rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .work-jumps .jump-label {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-right: 0.4rem;
+      letter-spacing: 0.01em;
+    }
+
+    .jump-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--bg);
+      color: var(--ink-2);
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      transition: all 0.22s ease;
+    }
+
+    .jump-pill:hover,
+    .jump-pill:focus-visible {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .jump-pill .pill-num {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--terracotta);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      transition: color 0.22s ease;
+    }
+
+    .jump-pill:hover .pill-num,
+    .jump-pill:focus-visible .pill-num { color: var(--gold); }
+
+    @media (max-width: 600px) {
+      .work-jumps { gap: 0.5rem; }
+      .jump-pill { font-size: 0.85rem; padding: 0.5rem 1rem; }
+      .work-jumps .jump-label { display: none; }
+    }
+
+    .age-group {
+      padding: clamp(3rem, 6vw, 5rem) 0 0;
+    }
+
+    .age-group + .age-group {
+      border-top: 2px solid var(--line);
+    }
+
+    .work .section-head + .age-group {
+      padding-top: 0;
+    }
+
+    .age-header {
+      max-width: 760px;
+      margin-bottom: 2.4rem;
+    }
+
+    .age-eyebrow {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--terracotta);
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.6rem;
+    }
+
+    .age-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0 0 0.6rem;
+    }
+
+    .age-desc {
+      font-size: 1.02rem;
+      color: var(--ink-2);
+      line-height: 1.6;
+      margin: 0;
+      max-width: 60ch;
+    }
+
+    .case {
+      padding: clamp(3rem, 6vw, 5.5rem) 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .age-group > .case:first-of-type { padding-top: 2rem; border-top: none; }
+
+    .engagement-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 2.2vw, 1.7rem);
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      margin: 4rem 0 0.4rem;
+      padding-top: 2.4rem;
+      border-top: 1px dashed var(--line);
+    }
+
+    .engagement-divider {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+      letter-spacing: 0.005em;
+      margin: 0 0 1.8rem;
+      max-width: 70ch;
+    }
+
+    .engagements {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.4rem;
+      padding-bottom: 2rem;
+    }
+
+    .engagement {
+      padding: 1.6rem 1.7rem;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+
+    .engagement:hover {
+      border-color: var(--ink-2);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 35px -22px rgba(31, 24, 18, 0.3);
+    }
+
+    .engagement .e-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.3rem 0.9rem;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .engagement .e-meta .where {
+      color: var(--ink-2);
+      font-style: normal;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      text-align: right;
+    }
+
+    .engagement h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 0.3rem;
+      color: var(--ink);
+    }
+
+    .engagement .role {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--terracotta-deep);
+      font-size: 0.95rem;
+      margin: 0 0 0.9rem;
+      line-height: 1.35;
+    }
+
+    .engagement p {
+      font-size: 0.95rem;
+      color: var(--ink-2);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .engagement .e-second {
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--line);
+    }
+
+    .engagement .e-second .role {
+      margin-bottom: 0.3rem;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.4fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 880px) {
+      .case-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+    }
+
+    .case-meta {
+      position: sticky;
+      top: 110px;
+      font-size: 0.92rem;
+    }
+
+    .case-meta .num {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .case-meta .where {
+      font-family: 'Fraunces', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: var(--ink);
+    }
+
+    .case-meta dl {
+      margin: 1.2rem 0 0;
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.45rem 1.2rem;
+      font-size: 0.88rem;
+    }
+
+    .case-meta dt {
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      font-weight: 500;
+      align-self: center;
+    }
+
+    .case-meta dd {
+      margin: 0;
+      color: var(--ink-2);
+      font-weight: 500;
+    }
+
+    .case-body h3 { margin-bottom: 0.5rem; }
+
+    .case-tagline {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--terracotta-deep);
+      line-height: 1.4;
+      margin: 0 0 1.8rem;
+      font-weight: 400;
+    }
+
+    .case-section {
+      margin-top: 1.8rem;
+    }
+
+    .case-section h4 {
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+      font-weight: 600;
+    }
+
+    .case-section p, .case-section li {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink-2);
+    }
+
+    .case-section ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .case-section ul li {
+      margin-bottom: 0.4rem;
+    }
+
+    .case-frameworks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .case-frameworks.stacked {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.3rem 0.75rem;
+      background: var(--bg-deep);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      color: var(--ink-2);
+      font-weight: 500;
+    }
+
+    .tag.terracotta { background: rgba(184, 80, 66, 0.1); border-color: rgba(184, 80, 66, 0.25); color: var(--terracotta-deep); }
+    .tag.forest { background: rgba(61, 90, 74, 0.1); border-color: rgba(61, 90, 74, 0.25); color: var(--forest-deep); }
+    .tag.gold { background: rgba(184, 137, 61, 0.12); border-color: rgba(184, 137, 61, 0.3); color: #8a6428; }
+
+    .case-card {
+      margin-top: 2rem;
+      padding: 1.6rem 1.8rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .case-card h4 {
+      color: var(--forest-deep);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.16em;
+    }
+
+    .case-card p { margin: 0 0 0.8rem; font-size: 0.95rem; }
+    .case-card p:last-child { margin: 0; }
+
+    .case-callouts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.6rem;
+    }
+
+    @media (max-width: 700px) { .case-callouts { grid-template-columns: 1fr; } }
+
+    .callout {
+      padding: 1.1rem 1.2rem;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .callout .num {
+      font-family: 'Fraunces', serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: var(--terracotta);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .callout .label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .case-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.4rem;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--terracotta);
+      padding-bottom: 2px;
+    }
+
+    /* Project Index */
+    .index { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    .index-group {
+      margin-bottom: 3rem;
+    }
+
+    .index-group h3 {
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
+      color: var(--terracotta-deep);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    .index-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .index-list li {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 1.5rem;
+      align-items: baseline;
+      padding: 0.85rem 0;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    @media (max-width: 700px) {
+      .index-list li {
+        grid-template-columns: 70px 1fr;
+        gap: 0.8rem 1rem;
+      }
+      .index-list li .place { grid-column: 2 / 3; font-size: 0.82rem; color: var(--muted); }
+    }
+
+    .index-list .year {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .index-list .title {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .index-list .desc {
+      color: var(--muted);
+      font-size: 0.92rem;
+      display: block;
+      margin-top: 0.15rem;
+      font-weight: 400;
+    }
+
+    .index-list .place {
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: right;
+      font-weight: 400;
+    }
+
+    /* Writing */
+    .writing { }
+
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.6rem;
+      margin-top: 2.4rem;
+    }
+
+    @media (max-width: 820px) { .writing-grid { grid-template-columns: 1fr; } }
+
+    .story {
+      padding: 2rem 1.8rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .story:nth-child(2)::before { background: var(--plum); }
+    .story:nth-child(3)::before { background: var(--forest); }
+
+    .story:hover {
+      transform: translateY(-3px);
+      border-color: var(--ink-2);
+      box-shadow: 0 20px 40px -25px rgba(31, 24, 18, 0.35);
+    }
+
+    .story:hover::before { transform: scaleX(1); }
+
+    .story .label {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .story h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .story .pub {
+      font-size: 0.92rem;
+      color: var(--ink-2);
+      font-weight: 500;
+    }
+
+    .story .year {
+      display: inline-block;
+      margin-left: 0.5rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* Contact */
+    .contact {
+      background: var(--ink);
+      color: var(--bg);
+      border-top: none;
+    }
+
+    .contact h2, .contact h3 { color: var(--bg); }
+
+    .contact .lede { color: rgba(244, 236, 216, 0.78); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 2.8rem;
+    }
+
+    @media (max-width: 820px) { .contact-grid { grid-template-columns: 1fr; gap: 2.4rem; } }
+
+    .contact-detail h4 {
+      color: rgba(244, 236, 216, 0.55);
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .contact-detail p {
+      font-family: 'Fraunces', serif;
+      font-size: 1.25rem;
+      margin: 0 0 1.6rem;
+    }
+
+    .contact-detail a {
+      color: var(--bg);
+      border-bottom: 1px solid rgba(244, 236, 216, 0.3);
+      padding-bottom: 1px;
+    }
+
+    .contact-detail a:hover { color: var(--gold); border-color: var(--gold); }
+
+    .contact .btn.primary { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+    .contact .btn.primary:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+    .contact .btn.ghost { color: var(--bg); border-color: rgba(244, 236, 216, 0.4); }
+    .contact .btn.ghost:hover { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+
+    /* Footer */
+    footer {
+      background: var(--ink);
+      color: rgba(244, 236, 216, 0.6);
+      padding: 2rem 0 2.4rem;
+      border-top: 1px solid rgba(244, 236, 216, 0.1);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+    }
+
+    .footer-row a { color: rgba(244, 236, 216, 0.78); }
+    .footer-row a:hover { color: var(--gold); }
+
+    /* Mobile menu */
+    .menu-toggle { display: none; }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 1.5rem 28px; border-bottom: 1px solid var(--line); gap: 1rem; }
+      .menu-toggle { display: inline-flex; background: none; border: none; color: var(--ink); font-size: 1.6rem; cursor: pointer; padding: 0; }
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Anchor offset */
+    section[id], .age-group[id] { scroll-margin-top: 90px; }
+
+    /* Selection */
+    ::selection { background: var(--terracotta); color: var(--bg); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#top" class="brand">Kwasi Adi-Dako<span>.</span></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#work">Selected Work</a>
+        <a href="#index-section">Other Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact">Contact</a>
+        <a href="Kwasi%20AD%20Resum%C3%A9%20Portfolio.pdf" class="nav-resume" target="_blank" rel="noopener">Resume</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Menu" id="menuToggle">≡</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container narrow">
+        <p class="eyebrow">Learning Experience Designer · Writer</p>
+        <h1>I use <span class="accent">play</span> to design ways for people of all ages to critically and confidently engage with the future.</h1>
+        <p class="lede">I enjoy solving problems related to curriculum development, instructional design, and student culture, and am happiest in the space where learning, game design, and storytelling meet. I am curious about connections between African histories and imagined futures, and explore these ideas through science fiction and building worlds in role-playing games. I hope that my students, readers, and collaborators connect with their inner children through my work.</p>
+        <div class="cta-row">
+          <a href="#work" class="btn primary">See selected work <span class="arrow">→</span></a>
+          <a href="Kwasi%20AD%20Resum%C3%A9%20Portfolio.pdf" target="_blank" rel="noopener" class="btn ghost">Download resume (PDF)</a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="item">
+            <span class="label">Currently</span>
+            <span class="value">
+              <span class="line">M.S., Learning Design & Technology</span>
+              <span class="line">Stanford University Graduate School of Education</span>
+              <span class="line">Zaentz Fellow</span>
+            </span>
+          </div>
+          <div class="item">
+            <span class="label">Previously</span>
+            <span class="value">
+              <span class="line">VP of Learning, ALX Africa</span>
+              <span class="line">Director of Learning, Moringa School</span>
+              <span class="line">Curriculum Designer & Classroom Facilitator, African Leadership University</span>
+            </span>
+          </div>
+          <div class="item">
+            <span class="label">Working from</span>
+            <span class="value">
+              <span class="line">Palo Alto, California</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num">§ 01</span>
+          <h2>About Me</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-prose">
+            <div class="about-photo">
+              <img src="kwasi-portrait.jpg" alt="Portrait of Kwasi Adi-Dako" loading="lazy" />
+            </div>
+
+            <p>As an educator, I seek to build a lifetime of work contributing to both individual and systemic changes which strengthen educational systems and structures, while focusing on innovations in teaching, instructional design, and student culture.</p>
+
+            <p>In my practice, I have always enjoyed having adults play like children in service of their goals, and so I decided to spend more time at the source of play in early education. I am currently at Stanford University's Graduate School of Education exploring early learning and deepening my learning philosophy by engaging more directly with children as they develop meta-cognition, literacy, and social-emotional skills.</p>
+
+            <p>I am deeply curious about how technology interacts with brain development, and especially how education needs to evolve as Artificial Intelligence reshapes assessment strategies. I love to think through the affordances and ethics of various tools as they are deployed in education systems all over the world, and am currently grappling with the tension between scale and degrowth as education continues to evolve.</p>
+
+            <p>My career so far has been focused on the education-to-employment space, and I have grown my expertise in adult learning at scale. This growth in scale has been gradual, starting with designing for and teaching in a classroom of 30 college students from 22 African countries at the African Leadership University; to leading a team that served 750 learners a year at Moringa School; to freelance experiences in five African countries that reached thousands of people each year; to my most recent role at ALX, spearheading programs of varying lengths for over 180,000 graduates in 2024.</p>
+
+            <p>As an avid gamer, roleplaying games and the speculative fiction genre have brought me so much joy and perspective over the years, and I'm eager to explore ways to design around playful, Afrofuturistic principles for learners of all ages. I'm also curious about third-space design, as informal learning environments like museums, playgrounds, and parks have huge potential to be transformative in places where access to these kinds of resources is low. At its core, my interest in third-space design is driven by a desire to have people connect more intentionally with their inner children, a theme that has been ever-present in my work.</p>
+
+            <p>I hope you enjoy engaging with my portfolio, and don't hesitate to reach out if you'd like to nerd out about any of the topics I cover below!</p>
+          </div>
+        </div>
+      </div><!-- /about container -->
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section id="work" class="work">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num">§ 02</span>
+          <h2>Selected Work</h2>
+        </div>
+
+        <nav class="work-jumps" aria-label="Jump to age group">
+          <span class="jump-label">Jump to —</span>
+          <a href="#early-childhood" class="jump-pill"><span class="pill-num">01</span> Early Childhood</a>
+          <a href="#teens-young-adults" class="jump-pill"><span class="pill-num">02</span> Teens & Young Adults</a>
+          <a href="#adults-executives" class="jump-pill"><span class="pill-num">03</span> Adults & Executives</a>
+        </nav>
+
+        <!-- ====== EARLY CHILDHOOD ====== -->
+        <div class="age-group" id="early-childhood">
+          <div class="age-header">
+            <span class="age-eyebrow">Group 01 · ages 3–11</span>
+            <h3 class="age-title">Early Childhood</h3>
+            <p class="age-desc">Explorations of ways to develop children's social-emotional learning by facilitating parent–child interactions through physical and digital tools.</p>
+          </div>
+
+        <!-- Case 1: Pebbles -->
+        <article class="case">
+          <div class="case-grid">
+            <aside class="case-meta">
+              <span class="num">Stanford Learning Design &amp; Technology Capstone <em>(In Progress)</em></span>
+              <div class="where">Pebbles</div>
+              <dl>
+                <dt>Role</dt><dd>Co-Designer & Researcher</dd>
+                <dt>Type</dt><dd>Mobile toolkit + scenario library</dd>
+              </dl>
+            </aside>
+            <div class="case-body">
+              <h3>A parent's pocket toolkit for social-emotional learning.</h3>
+              <p class="case-tagline">Helping parents guide kids through big emotions — one small moment at a time.</p>
+
+              <div class="case-section">
+                <h4>The challenge</h4>
+                <p>Parent-child interactions during everyday routines shape children's self-awareness and self-regulation. But parents lack a practical playbook for the moment: tantrums in transitions, meltdowns at bedtime, the noise of an overstimulated grocery aisle. They're winging it under fatigue, isolation, and pressure with no time to learn.</p>
+              </div>
+
+              <div class="case-section">
+                <h4>Theory of change</h4>
+                <p>Treat parents as the primary learners. Children's growth follows from changed parent behavior. Pebbles is built on the intersection of three frameworks:</p>
+                <div class="case-frameworks stacked">
+                  <span class="tag terracotta">Emotion Coaching · Gottman, Havighurst</span>
+                  <span class="tag forest">Fogg Behavior Model</span>
+                  <span class="tag gold">Guided Play · Weisberg et al.</span>
+                </div>
+              </div>
+
+              <div class="case-section">
+                <h4>What I designed</h4>
+                <p>A mobile experience for parents of children ages 3–11 that goes through the following steps:</p>
+                <ul>
+                  <li><strong>Learn:</strong> 2–3 minute animated micro-lessons covering interoception, emotion identification, co-regulation, impulse control, and stress management.</li>
+                  <li><strong>Practice:</strong> 5–10 minute scenario activities curated from UC Berkeley's Greater Good Science Center, Character Lab, Panorama, and others.</li>
+                  <li><strong>Reflect & Share:</strong> 1–2 minute audio or text reflections, formative self-assessment, and asynchronous peer learning across parents.</li>
+                </ul>
+              </div>
+
+              <div class="case-section">
+                <h4>How we measured learning</h4>
+                <p>Two longitudinal signals: <em>engagement over time</em> as a proxy for sustained practice, and <em>reflection evolution</em> with qualitative coding to signal changes in behaviour over time.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Case 2: Food for Thought -->
+        <article class="case">
+          <div class="case-grid">
+            <aside class="case-meta">
+              <span class="num">2026 · Stanford LDT</span>
+              <div class="where">Food for Thought<br/><span style="color: var(--muted); font-style: italic; font-weight: 400; font-size: 1rem;">Curriculum for Learning Home Volunteers</span></div>
+              <dl>
+                <dt>Role</dt><dd>Co-Designer</dd>
+                <dt>Type</dt><dd>Curriculum</dd>
+              </dl>
+            </aside>
+            <div class="case-body">
+              <h3>A six-unit curriculum that turns the grocery store into a kindergarten-readiness classroom.</h3>
+              <p class="case-tagline">Designed for ages 3–5 in low-income families. Costs $0. Works in any language.</p>
+
+              <div class="case-section">
+                <h4>The challenge</h4>
+                <p>Learning Home Volunteers is a non-profit serving low-income families in San Mateo County. They put a strong play-based curriculum into homes via low cost themed kits. The design challenge was to extend that craft into a place where parents and children already spend time together: the grocery store.</p>
+              </div>
+
+              <div class="case-section">
+                <h4>The frame we built on</h4>
+                <p>We anchored the curriculum in four traditions, each with a sharp pedagogical implication:</p>
+                <div class="case-frameworks">
+                  <span class="tag terracotta">Strengths-based · Funds of Knowledge (Moll)</span>
+                  <span class="tag forest">Progressivism · Dewey</span>
+                  <span class="tag gold">Banking Time · Williford</span>
+                  <span class="tag">Learning Pathways · Sawyer</span>
+                </div>
+              </div>
+
+              <div class="case-section">
+                <h4>The six units</h4>
+                <ul>
+                  <li><strong>Aisles:</strong> Geometry & spatial awareness</li>
+                  <li><strong>Food labels & receipts:</strong> Print, symbols & early literacy</li>
+                  <li><strong>Produce:</strong> Shapes & colors</li>
+                  <li><strong>Shelf-stable foods:</strong> Putting it all together</li>
+                  <li><strong>Cart:</strong> Movement & motor skills</li>
+                  <li><strong>Waiting in line:</strong> Patience & prediction</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Case 3: Dino Rescue -->
+        <article class="case">
+          <div class="case-grid">
+            <aside class="case-meta">
+              <span class="num">2026 · Stanford LDT</span>
+              <div class="where">Dino Rescue<br/><span style="color: var(--muted); font-style: italic; font-weight: 400; font-size: 1rem;">A laser-cut, 3D-printed parent–child board game</span></div>
+              <dl>
+                <dt>Role</dt><dd>Co-Designer & Maker</dd>
+                <dt>Type</dt><dd>Physical board game</dd>
+                <dt>Tools</dt><dd>Glowforge, 3D printer, paint</dd>
+              </dl>
+            </aside>
+            <div class="case-body">
+              <h3>A physical experience that facilitates parent–child quality time and grows social-emotional learning skills.</h3>
+
+              <div class="case-section">
+                <h4>The challenge</h4>
+                <p>Build a physical experience that creates real quality time between parents and children, and that develops kids' social-emotional skills over repeated play.</p>
+              </div>
+
+              <div class="case-section">
+                <h4>The process</h4>
+                <p>We started with a paper prototype and once the play loop felt right, we re-built the artefact in a higher-resolution form: laser-cut and engraved board, 3D-printed pieces, hand-painted finishing.</p>
+              </div>
+
+              <div class="case-section">
+                <p>
+                  <a class="case-link" href="https://www.canva.com/design/DAHDlIoiPNo/qZX3Nnu__tGZmWad0zlYhA/edit" target="_blank" rel="noopener">View walkthrough on Canva <span class="arrow">→</span></a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+        </div><!-- /age-group early childhood -->
+
+        <!-- ====== TEENS & YOUNG ADULTS ====== -->
+        <div class="age-group" id="teens-young-adults">
+          <div class="age-header">
+            <span class="age-eyebrow">Group 02 · ages 14–25</span>
+            <h3 class="age-title">Teens & Young Adults</h3>
+            <p class="age-desc">A decade of cohort-based programs that build careers across the African continent and the consulting work that helped institutions architect them.</p>
+          </div>
+
+        <!-- Case: ALX -->
+        <article class="case">
+          <div class="case-grid">
+            <aside class="case-meta">
+              <span class="num">2023–2025 · Pan-African</span>
+              <div class="where">ALX Foundations & Pathway<br/><span style="color: var(--muted); font-style: italic; font-weight: 400; font-size: 1rem;">Program leadership, pan-African scale</span></div>
+              <dl>
+                <dt>Role</dt><dd>VP of Learning · Head of Programs</dd>
+                <dt>Mandate</dt><dd>Strategy, design, delivery, selection</dd>
+                <dt>Audience</dt><dd>Early-career software engineers & data scientists</dd>
+              </dl>
+            </aside>
+            <div class="case-body">
+              <div class="case-section">
+                <h4>What I owned</h4>
+                <p>I owned the entire student journey from the moment they clicked "apply" to when they graduated from one of our programs. This included managing Selection, Curriculum Design, and Program Delivery teams. In my last year at ALX, we had over 180,000 graduates from our various programs which ranged in length from 8 weeks to 1 year.</p>
+              </div>
+
+              <div class="case-section">
+                <h4>How I worked</h4>
+                <ul>
+                  <li>Defined and managed projects from initial scoping and requirements through research, design, and delivery, partnering with content, ops, and selection teams across the African continent.</li>
+                  <li>Built agile rituals (rapid prototyping, cohort pilots, structured retros) that let us iterate curriculum between cohorts rather than between years.</li>
+                  <li>Orchestrated specialized partners (video, animation, visual design) when the live experience needed support beyond the room.</li>
+                  <li>Held a quality bar: continual review for relevance, effectiveness, impact, and scalability against learner feedback and stakeholder input.</li>
+                </ul>
+              </div>
+
+              <div class="case-section">
+                <h4>What it taught me</h4>
+                <p>This was a valuable learning opportunity for delivering programs at high scale while maintaining a high quality bar at low cost. I developed my strategic skills and began to engage with AI as a thought partner and facilitator of strong business practices.</p>
+              </div>
+
+            </div>
+          </div>
+        </article>
+
+        <!-- Case: Moringa School -->
+        <article class="case">
+          <div class="case-grid">
+            <aside class="case-meta">
+              <span class="num">2018–2020 · Nairobi, Kenya</span>
+              <div class="where">Moringa School<br/><span style="color: var(--muted); font-style: italic; font-weight: 400; font-size: 1rem;">Director of Learning</span></div>
+              <dl>
+                <dt>Role</dt><dd>Director of Learning</dd>
+                <dt>Mandate</dt><dd>Strategy, design, people development</dd>
+                <dt>Audience</dt><dd>Early-career software engineers & data scientists</dd>
+              </dl>
+            </aside>
+            <div class="case-body">
+              <div class="case-section">
+                <h4>What I owned</h4>
+                <p>I led strategy, design, and professional development for the three teams that shape a learner's journey at Moringa: learning design, classroom delivery, and product development. The school moved roughly 750 learners a year through cohort-based software-engineering and data-science programs, and my job was to make sure each cohort got better than the last.</p>
+              </div>
+
+              <div class="case-section">
+                <h4>How I worked</h4>
+                <ul>
+                  <li>Translated curriculum strategy into instructor practice through structured coaching cycles (observation, feedback, deliberate practice).</li>
+                  <li>Aligned the learning, classroom, and product teams around shared cohort metrics so the experience felt continuous to learners rather than handed off between functions.</li>
+                  <li>Iterated curriculum between cohorts based on outcomes data and instructor field reports, closing the loop fast enough that learners felt the change.</li>
+                </ul>
+              </div>
+
+              <div class="case-section">
+                <h4>What it taught me</h4>
+                <p>This was the role where I learned how a learning organization actually functions. Curriculum is one slice; the institutional muscle around it — how teams talk to each other, how feedback travels, how decisions about a single cohort get made — is what determines whether a program can scale and stay good. By the time I stepped into the VP of Learning role at ALX, I had a working model for how to build alignment across the three layers that determine whether a program actually changes outcomes for learners.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Case: ALU (founding) -->
+        <article class="case">
+          <div class="case-grid">
+            <aside class="case-meta">
+              <span class="num">2014–2017 · Mauritius</span>
+              <div class="where">African Leadership University<br/><span style="color: var(--muted); font-style: italic; font-weight: 400; font-size: 1rem;">Founding the Projects Course</span></div>
+              <dl>
+                <dt>Role</dt><dd>Curriculum Designer & Facilitator → Faculty Team Lead</dd>
+                <dt>Mandate</dt><dd>Design curriculum, teach in class, lead a team of facilitators</dd>
+                <dt>Audience</dt><dd>First-year university students from all over Africa</dd>
+              </dl>
+            </aside>
+            <div class="case-body">
+              <div class="case-section">
+                <h4>What I owned</h4>
+                <p>I was a member of the founding team of the university to craft a unique blended learning model. I designed and facilitated the "Projects Course" on project management in partnership with real world companies. This involved crafting learning outcomes, learning experiences and assessments for a 1-year curriculum to deliver to students from 22 African countries.</p>
+                <p>As a faculty team lead, I crafted and executed a personal and professional development strategy for a team of 12 facilitators delivering to 180 students. This also included setting team culture and values, onboarding, accountability, and operational system building. I also managed the process of redesign to a new version of the ALU first year curriculum based on feedback from our first year of operation.</p>
+              </div>
+
+              <div class="case-section">
+                <h4>How I worked</h4>
+                <ul>
+                  <li>As a curriculum designer, I employed backward design principles to build skills maps with observable learning outcomes that formed the basis of assessments and content.</li>
+                  <li>As a classroom facilitator, I encouraged students to own their learning journeys, and pushed for critical engagement with all aspects of the curriculum.</li>
+                  <li>As a faculty lead, I focused on teacher training and ensuring smooth classroom operations across our various classes.</li>
+                </ul>
+              </div>
+
+              <div class="case-section">
+                <h4>What I learned</h4>
+                <p>The Faculty Lead position was my first experience leading a team, and it was a challenging and rewarding role. The startup education environment was ever-changing and required a high degree of flexibility that helped prepare me for future leadership roles. My time as a designer and classroom teacher also helped ground my pedagogical practice as I learned more about what works in education.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <h4 class="engagement-heading">Freelance Work</h4>
+        <p class="engagement-divider">The engagements below were shorter-term projects I worked on as a freelance instructional designer. They cover educational strategy, curriculum design, and facilitation.</p>
+
+        <div class="engagements">
+          <article class="engagement">
+            <div class="e-meta"><span>2021–2022</span><span class="where">Uganda · South Africa</span></div>
+            <h4>Educate!</h4>
+            <p class="role">Curriculum design across two programs.</p>
+            <p><strong>Out of School Youth: Train the Trainer (2022, South Africa).</strong> A trainer-development curriculum to help facilitators consistently reach out-of-school youth across the country.</p>
+            <p class="e-second"><strong>VIP Bootcamp Mentor Program (2021, Uganda).</strong> Mentor-training program built for Educate!'s flagship youth bootcamp, translating peer-mentor practice into a learnable curriculum.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2022</span><span class="where">South Africa</span></div>
+            <h4>Lean Startup Curriculum</h4>
+            <p class="role">University-level curriculum design.</p>
+            <p>A lean-startup curriculum delivered through the University of Johannesburg, structuring how undergraduates learn to move from a problem statement to a customer-validated MVP.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2022</span><span class="where">South Africa</span></div>
+            <h4>Standard Bank</h4>
+            <p class="role">Youth Engagement Strategy.</p>
+            <p>Built Standard Bank's youth engagement strategy across its South African footprint, defining how the institution would meaningfully reach, develop, and retain young South Africans across the bank's product lines.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2022</span><span class="where">South Africa</span></div>
+            <h4>Tech Career Catalyst</h4>
+            <p class="role">Career-readiness curriculum design.</p>
+            <p>Curriculum design for ALX's flagship pipeline program, distinct from the Foundations & Pathway VP role above. Focused on the career-readiness skills that turn strong technical talent into hireable graduates.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2022</span><span class="where">USA</span></div>
+            <h4>Unison Solutions</h4>
+            <p class="role">Learning Model Strategy.</p>
+            <p>Architected a learning model to help Unison Solutions upskill a growing engineering team, sequencing onboarding, technical mastery, and progression in a single coherent system.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2021</span><span class="where">Rwanda</span></div>
+            <h4>ALU Learning Model Redesign</h4>
+            <p class="role">Independent consulting on a v3 of the model.</p>
+            <p>Returned to my founding institution as an outside consultant, applying lessons from cohort feedback to refine the blended-learning approach into its third iteration.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2021</span><span class="where">Ghana</span></div>
+            <h4>Digital Launchpad</h4>
+            <p class="role">Curriculum design for ALX's Ghana pipeline.</p>
+            <p>Extended the ALX model into a new geography, with a curriculum tuned to the Ghanaian context for digital-skills entry into the tech workforce.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2021</span><span class="where">Nigeria</span></div>
+            <h4>Odiso</h4>
+            <p class="role">Foundational Strategy.</p>
+            <p>Set the foundational learning strategy for Odiso, a Nigeria-based learning organization, as it scaled its early-stage operations, defining audience, modality, and the institutional rituals that would carry the work.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2020</span><span class="where">Ghana</span></div>
+            <h4>African Management Institute</h4>
+            <p class="role">Social Commerce Course.</p>
+            <p>Designed a short course on social commerce for African micro-entrepreneurs, translating informal market wisdom into a structured, cohort-deliverable curriculum.</p>
+          </article>
+
+          <article class="engagement">
+            <div class="e-meta"><span>2020</span><span class="where">Ghana</span></div>
+            <h4>Cultural Encyclopedia</h4>
+            <p class="role">Curriculum & content design.</p>
+            <p>Curriculum and content design for the ANO Institute of Arts & Knowledge's cultural encyclopedia project, translating Ghanaian cultural heritage into a structured learning resource.</p>
+          </article>
+        </div>
+        </div><!-- /age-group teens & young adults -->
+
+        <!-- ====== ADULTS & EXECUTIVES ====== -->
+        <div class="age-group" id="adults-executives">
+          <div class="age-header">
+            <span class="age-eyebrow">Group 03 · the room of leaders</span>
+            <h3 class="age-title">Adults & Executives</h3>
+            <p class="age-desc">Live, in-the-room experiences for senior leaders and high-stakes teams, including strategy retreats, curated panels, and national-scale advisory work.</p>
+          </div>
+
+          <div class="engagements">
+            <article class="engagement">
+              <div class="e-meta"><span>2023, 2016</span><span class="where">African Leadership Network</span></div>
+              <h4>ALN Annual Conference</h4>
+              <p class="role">Panel host for 300+ top African executives.</p>
+              <p>Hosted a series of panel discussions with African leaders from across sectors at the African Leadership Network's annual conference, orchestrating the live, in-the-room conversations that 300+ executives flew in for.</p>
+            </article>
+
+            <article class="engagement">
+              <div class="e-meta"><span>2020</span><span class="where">Government of Ghana</span></div>
+              <h4>Ghana Museums Presidential Committee</h4>
+              <p class="role">National educational strategy + report workshop.</p>
+              <p>Worked with the Presidential Committee on Ghana Museums to design a national educational strategy for the country's museum system, and to facilitate the senior workshop that turned the committee's draft report into shared direction.</p>
+            </article>
+
+            <article class="engagement">
+              <div class="e-meta"><span>2019</span><span class="where">IDEO.org · Kenya</span></div>
+              <h4>IDEO.org Team Retreat</h4>
+              <p class="role">Designer & facilitator for IDEO.org's Nairobi office.</p>
+              <p>Designed and facilitated a retreat for IDEO.org's Nairobi-based team, turning the team's existing design-thinking instincts onto themselves to surface tensions, set direction, and reset the working rhythms of the office.</p>
+            </article>
+
+            <article class="engagement">
+              <div class="e-meta"><span>2017</span><span class="where">ELMA Foundation</span></div>
+              <h4>ELMA Foundation Retreat</h4>
+              <p class="role">Designer & facilitator for a 40-person leadership retreat.</p>
+              <p>Designed and facilitated a multi-day retreat for 40 ELMA Foundation employees, running a strategic review, enabling team-building, and holding space for the crucial conversations that move a senior team forward.</p>
+            </article>
+          </div>
+        </div><!-- /age-group adults & executives -->
+      </div>
+    </section>
+
+    <!-- PROJECT INDEX -->
+    <section id="index-section" class="index">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num">§ 03</span>
+          <h2>Other Projects</h2>
+        </div>
+
+        <div class="index-group">
+          <h3>Stanford LDT additional projects</h3>
+          <ul class="index-list">
+            <li>
+              <span class="year">2026</span>
+              <span class="title">Dealbreakers Card Game<span class="desc">A 4–8 player social card game designed for groups of friends to get to know each other better. This involved an iterative prototyping process which culminated in a fully realized board game including 3D printed pieces.</span></span>
+            </li>
+            <li>
+              <span class="year">2025</span>
+              <span class="title">Palo Alto Junior Museum & Zoo Analysis<span class="desc">A learning-environment analysis of an informal learning space, including four site visits, structured field notes, and a synthesis report with design recommendations.</span></span>
+            </li>
+            <li>
+              <span class="year">2025</span>
+              <span class="title">We Are Heroes (Prototype)<span class="desc">A vibe-coded collaborative parent–child game that develops SEL through quality time. Working prototype, design doc, and slide deck.</span></span>
+            </li>
+            <li>
+              <span class="year">2025</span>
+              <span class="title">Storytime AI Analysis<span class="desc">A critical analysis of an AI-driven story-creation tool, looking at affordances, ethics, efficacy, and experience design.</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="index-group">
+          <h3>Other retreats & live experiences</h3>
+          <ul class="index-list">
+            <li>
+              <span class="year">2020</span>
+              <span class="title">Hack the Creative Mind<span class="desc">A creative-process workshop series for artists in Mauritius.</span></span>
+              <span class="place">Lakaz D'Art · Mauritius</span>
+            </li>
+            <li>
+              <span class="year">2010–13</span>
+              <span class="title">Columbia Urban Experience, Leader & Co-Coordinator<span class="desc">Led 80+ incoming first-year students alongside 13 co-leaders through community service and critical-discussion activities, and ran year-round leadership-training workshops focused on team dynamics and individual strengths.</span></span>
+              <span class="place">Columbia University · NYC</span>
+            </li>
+            <li>
+              <span class="year">2010–11</span>
+              <span class="title">Columbia Student of Color Leadership Retreat<span class="desc">Designed and facilitated discussions on leading as a person of color in the U.S. for 50 students.</span></span>
+              <span class="place">Columbia University · NY</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section id="writing" class="writing">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num">§ 04</span>
+          <h2>Published Fiction</h2>
+          <p class="section-tag">Speculative fiction short stories in various publications. Writing these helps keep my creative spark alive, and there are always more coming!</p>
+        </div>
+
+        <div class="writing-grid">
+          <a class="story" href="https://writersprojectghana.com/journal/reader/jwpg/volume1/number1/Adi-Dako_v1n1.pdf" target="_blank" rel="noopener">
+            <h3>Don't Fall Asleep</h3>
+            <div class="pub">Journal of Writers Project Ghana<span class="year">2022</span></div>
+          </a>
+          <a class="story" href="https://www.writersspace.net/daydreamer-a-short-story-by-kwasi-adi-dako-ghana/" target="_blank" rel="noopener">
+            <h3>Daydreamer</h3>
+            <div class="pub">Writer Space Africa<span class="year">2021</span></div>
+          </a>
+          <a class="story" href="https://omenana.com/2021/12/21/dust-by-kwasi-adi-dako/" target="_blank" rel="noopener">
+            <h3>Dust</h3>
+            <div class="pub">Omenana<span class="year">2021</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-num" style="color: rgba(244, 236, 216, 0.5);">§ 05</span>
+          <h2>Stay in touch!</h2>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-detail">
+            <h4>Email</h4>
+            <p><a href="mailto:kdako90@gmail.com">kdako90@gmail.com</a><br/><a href="mailto:kwasiadi@stanford.edu">kwasiadi@stanford.edu</a></p>
+            <p><a href="https://www.linkedin.com/in/kwasi-adi-dako-8986aa24/" target="_blank" rel="noopener">LinkedIn →</a></p>
+          </div>
+          <div class="contact-detail">
+            <h4>Resume</h4>
+            <a href="Kwasi%20AD%20Resum%C3%A9%20Portfolio.pdf" target="_blank" rel="noopener" class="btn primary">Download resume (PDF) <span class="arrow">↓</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 Kwasi Adi-Dako</div>
+      <div><a href="#top">Back to top ↑</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+      navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    }
+
+    // Scroll reveal — only hide elements that are below the fold on first paint
+    // (so above-fold content renders immediately, and crawlers/screenshot tools
+    // see everything by default if JS / IntersectionObserver isn't fully exercised).
+    const candidates = document.querySelectorAll('.case, .story, .approach, .pull-quote, .index-group, .hero-meta');
+    const vh = window.innerHeight || 800;
+    const toReveal = [];
+    candidates.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top > vh * 0.9) {
+        el.classList.add('reveal');
+        toReveal.push(el);
+      }
+    });
+
+    if ('IntersectionObserver' in window && toReveal.length) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      toReveal.forEach(el => io.observe(el));
+    } else {
+      // Fallback: just show everything
+      toReveal.forEach(el => el.classList.add('visible'));
+    }
+
+    // Safety net — if anything is still hidden after 2.5s (e.g. headless / no scroll
+    // events), reveal it so the page is never permanently empty.
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 2500);
+  </script>
+</body>
+</html>
